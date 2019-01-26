@@ -9,6 +9,7 @@ public class Movement : MonoBehaviour {
 	public bool hiding = false; // when true, character can't move
 	public bool charge = false;
 	public bool ExitShell = false; // when true, character is vulnerable from all sides
+	// public bool jump = false; // when true, character can't attack
 
 	// Use this for initialization
 	void Start () {
@@ -33,9 +34,10 @@ public class Movement : MonoBehaviour {
 			}
 		}
 
-		hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H); 
+		hiding = (OVRInput.Get(OVRInput.Button.Down) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H); 
 		charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C );
 		ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+		// jump = OVRInput.Get(OVRInput.Button.Up) || Input.GetKey(KeyCode.J); 
 
 		if (hiding) {
 			// shell moves down covering player's vision
@@ -48,5 +50,9 @@ public class Movement : MonoBehaviour {
 		if (ExitShell) {
 			// shell moves up and becomes detached from player
 		}
+
+		// if (jump) {
+		// 	// move up y-axis temporarily by height of character
+		// }
 	}
 }
