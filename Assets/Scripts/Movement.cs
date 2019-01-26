@@ -43,6 +43,12 @@ public class Movement : MonoBehaviour
             }
             else
             {
+				if(Input.GetKey(KeyCode.LeftArrow)){
+					transform.Rotate(0, -1, 0);
+				}
+				if(Input.GetKey(KeyCode.RightArrow)){
+					transform.Rotate(0, 1, 0);
+				}
                 if (shell != null && shell.localPosition.y < 2f)
                 {
                     shell.localPosition += Vector3.up * Time.deltaTime * 4;
