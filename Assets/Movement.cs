@@ -5,7 +5,8 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
 	public Transform cameraObject;
-	public float speed = 2;
+    public OVRScreenFade fade;
+    public float speed = 2;
 	public bool hiding = false; // when true, character can't move
 	public bool charge = false;
 	public bool ExitShell = false; // when true, character is vulnerable from all sides
@@ -55,4 +56,13 @@ public class Movement : MonoBehaviour {
 		// 	// move up y-axis temporarily by height of character
 		// }
 	}
+
+    // Collide with Predator
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.collider.gameObject.tag == "Predator" && hiding == false)
+        {
+            fade.FadeOut();
+        }
+    }
 }

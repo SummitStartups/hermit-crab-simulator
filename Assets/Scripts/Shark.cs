@@ -9,7 +9,7 @@ public class Shark : MonoBehaviour {
     float width;
     float length;
     float direction;
-
+     
 	// Use this for initialization
 	void Start () {
         speed = 1;
@@ -20,7 +20,7 @@ public class Shark : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Vector3.Distance(target.position, transform.position) <= 5)
+        if (Vector3.Distance(target.position, transform.position) <= 10)
         {
             if (Mathf.Approximately(direction,1)) 
             {
