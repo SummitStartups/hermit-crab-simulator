@@ -21,7 +21,6 @@ public class Size : MonoBehaviour {
     // Recurring growth
     void Grow()
     {
-        print("GROW");
         print(size);
         size++;
     }
