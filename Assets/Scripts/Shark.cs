@@ -48,9 +48,9 @@ public class Shark : MonoBehaviour {
     }
 
     // Collide with Player
-    void OnTriggerEnter(Collider player)
+    void OnCollisionEnter(Collision col)
     {
-        if(player.gameObject.tag == "Player") 
+        if(col.collider.gameObject.tag == "Player") 
         {
             direction = -1;
         }
