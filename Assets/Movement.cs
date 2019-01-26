@@ -21,23 +21,23 @@ public class Movement : MonoBehaviour {
 		Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 		if (hiding == false) {
 			if (primaryTouchpad.y > 0.2f || Input.GetKey(KeyCode.W) ) {
-				transform.position += cameraObject.forward * speed / 100;
+				transform.position += cameraObject.forward * speed / 100 * primaryTouchpad.y;
 			}
 			if (primaryTouchpad.y < -0.2f || Input.GetKey(KeyCode.S) ) {
-				transform.position -= cameraObject.forward * speed / 100;
+				transform.position -= cameraObject.forward * speed / 100 * primaryTouchpad.y;
 			}
 			if (primaryTouchpad.x > 0.2f || Input.GetKey(KeyCode.D) ) {
-				transform.position += cameraObject.right * speed / 100;
+				transform.position += cameraObject.right * speed / 100 * primaryTouchpad.x;
 			}
 			if (primaryTouchpad.x < -0.2f || Input.GetKey(KeyCode.A) ) {
-				transform.position -= cameraObject.right * speed / 100;
+				transform.position -= cameraObject.right * speed / 100 * primaryTouchpad.x;
 			}
 		}
 
-		hiding = (OVRInput.Get(OVRInput.Button.Down) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H); 
+		hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H); 
 		charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C );
 		ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
-		// jump = OVRInput.Get(OVRInput.Button.Up) || Input.GetKey(KeyCode.J); 
+		// jump = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > 0.2f) || Input.GetKey(KeyCode.J); 
 
 		if (hiding) {
 			// shell moves down covering player's vision
