@@ -41,7 +41,7 @@ public class Shark : MonoBehaviour {
             float x = Mathf.Cos(timeCounter) * width ;
             float y = 0;
             float z = Mathf.Sin(timeCounter) * length;
-
+            transform.rotation = Quaternion.LookRotation(new Vector3(x, y, z) * Time.deltaTime * speed);
             transform.position += new Vector3(x, y, z) * Time.deltaTime*speed;
         }
 
