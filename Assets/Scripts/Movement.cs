@@ -82,33 +82,6 @@ public class Movement : MonoBehaviour
                 // 	// move up y-axis temporarily by height of character
                 // }
             }
-<<<<<<< HEAD
-            if (primaryTouchpad.x < -0.2f || Input.GetKey(KeyCode.A))
-            {
-                transform.position += cameraObject.right * speed / 100
-                * (primaryTouchpad.x == 0 ? -1 : primaryTouchpad.x);
-            }
-
-            if (charge)
-            {
-                transform.position += cameraObject.forward * speed / 100;
-            }
-
-            if (ExitShell)
-            {
-                shell.localPosition += Vector3.up * Time.deltaTime * 4;
-                shell.SetParent(null);
-                // shell moves up and becomes detached from player
-                // change from shell to base scene in center eye position
-                // set position correctly by...
-                // shell drops to sea floor?
-            }
-
-            // if (jump) {
-            // 	// move up y-axis temporarily by height of character
-            // }
-=======
->>>>>>> 7ab2eb47f89e77860972de13d2f02c8f1de74fff
         }
     }
 
