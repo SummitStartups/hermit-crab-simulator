@@ -5,7 +5,10 @@ ModelImporter:
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
+<<<<<<< HEAD
     2186277476908879412: ImportLogs
+=======
+>>>>>>> f4bbb20a6ccf033e0a8bcd0b0209d2471a925bbc
   externalObjects: {}
   materials:
     importMaterials: 1

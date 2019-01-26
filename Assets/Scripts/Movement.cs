@@ -30,6 +30,7 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+<<<<<<< HEAD
         if (!dead)
         {
             Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
@@ -99,6 +100,76 @@ public class Movement : MonoBehaviour
                 // if (jump) {
                 // 	// move up y-axis temporarily by height of character
                 // }
+=======
+        if (!dead)
+        {
+            Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
+
+            hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
+            charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C);
+            ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+            // jump = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > 0.2f) || Input.GetKey(KeyCode.J); 
+
+            if (hiding && shell != null)
+            {
+                if (shell.localPosition.y > 1.2f)
+                {
+                    shell.localPosition -= Vector3.up * Time.deltaTime * 4;
+                }
+            }
+            else
+            {
+				if(Input.GetKey(KeyCode.LeftArrow)){
+					transform.Rotate(0, -1, 0);
+				}
+				if(Input.GetKey(KeyCode.RightArrow)){
+					transform.Rotate(0, 1, 0);
+				}
+                if (shell != null && shell.localPosition.y < 2f)
+                {
+                    shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                }
+                if (primaryTouchpad.y > 0.2f || Input.GetKey(KeyCode.W))
+                {
+                    transform.position += cameraObject.forward * speed / 100
+                    * (primaryTouchpad.y == 0 ? 1 : primaryTouchpad.y);
+                }
+                if (primaryTouchpad.y < -0.2f || Input.GetKey(KeyCode.S))
+                {
+                    transform.position += cameraObject.forward * speed / 100
+                    * (primaryTouchpad.y == 0 ? -1 : primaryTouchpad.y);
+                }
+                if (primaryTouchpad.x > 0.2f || Input.GetKey(KeyCode.D))
+                {
+                    transform.position += cameraObject.right * speed / 100
+                    * (primaryTouchpad.x == 0 ? 1 : primaryTouchpad.x);
+                }
+                if (primaryTouchpad.x < -0.2f || Input.GetKey(KeyCode.A))
+                {
+                    transform.position += cameraObject.right * speed / 100
+                    * (primaryTouchpad.x == 0 ? -1 : primaryTouchpad.x);
+                }
+
+                if (charge)
+                {
+                    transform.position += cameraObject.forward * speed / 100;
+                }
+
+                if (shell != null & ExitShell)
+                {
+                    shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                    shell.SetParent(null);
+					shell = null;
+                    // shell moves up and becomes detached from player
+                    // change from shell to base scene in center eye position
+                    // set position correctly by...
+                    // shell drops to sea floor?
+                }
+
+                // if (jump) {
+                // 	// move up y-axis temporarily by height of character
+                // }
+>>>>>>> f4bbb20a6ccf033e0a8bcd0b0209d2471a925bbc
             }
         }
     }
@@ -108,6 +179,7 @@ public class Movement : MonoBehaviour
     {
         if (col.collider.gameObject.tag == "Shark")
         {
+<<<<<<< HEAD
             if (attack == true)
             {
                 Destroy(col.collider.gameObject);
@@ -118,6 +190,21 @@ public class Movement : MonoBehaviour
                 fade.FadeOut();
                 Invoke("ReloadGame", 3f);
             }
+=======
+            dead = true;
+            fade.FadeOut();
+            Invoke("ReloadGame", 3f);
+        }
+
+        // if no shell, collide new shell, set parent to camera object
+        // Debug.Log(col.collider.transform.parent);
+        // Debug.Log(col.collider.gameObject.tag);
+        if (shell == null && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
+        { // make new script for "Shell"??
+            // gameObject.transform.parent = col.collider.gameObject; // set to shell hopefully
+			shell = col.collider.transform;
+            shell.SetParent(cameraObject); // or would this do the trick? set parent to camera object 
+>>>>>>> f4bbb20a6ccf033e0a8bcd0b0209d2471a925bbc
         }
     }
 
@@ -134,3 +221,9 @@ public class Movement : MonoBehaviour
         print(attack);
     }
 }
+
+/*
+TODO: 
+1. if no shell -> increased movement speed + disable hiding
+2. defensive manuevers?? hide in shell, hide behind rock, dig underground (lose shell)
+ */
