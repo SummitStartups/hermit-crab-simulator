@@ -71,7 +71,12 @@ public class Movement : MonoBehaviour
 
             if (ExitShell)
             {
+                shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                shell.SetParent(null);
                 // shell moves up and becomes detached from player
+                // change from shell to base scene in center eye position
+                // set position correctly by...
+                // shell drops to sea floor?
             }
 
             // if (jump) {
@@ -85,5 +90,19 @@ public class Movement : MonoBehaviour
         {
             fade.FadeOut();
         }
+
+        // if no shell, collide new shell, set parent to camera object
+        // Debug.Log(col.collider.transform.parent);
+        // Debug.Log(col.collider.gameObject.tag);
+        if (col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { // make new script for "Shell"??
+            // gameObject.transform.parent = col.collider.gameObject; // set to shell hopefully
+            col.collider.transform.SetParent(cameraObject); // or would this do the trick? set parent to camera object 
+        }
     }
 }
+
+/*
+TODO: 
+1. if no shell -> increased movement speed + disable hiding
+2. defensive manuevers?? hide in shell, hide behind rock, dig underground (lose shell)
+ */
