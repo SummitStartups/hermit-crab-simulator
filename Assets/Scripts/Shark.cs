@@ -7,14 +7,18 @@ public class Shark : MonoBehaviour
     public Transform target;
     public AudioClip low, high;
     AudioSource audioSource;
+    Movement movement;
+
+    bool attacking = false;
     float timeCounter;
-    float speed = 1;
+    float speed = 0.5f;
     float width = 2;
     float length = 3;
     float direction = 1;
 
     void Start()
     {
+        movement = target.GetComponent<Movement>();
         audioSource = GetComponent<AudioSource>();
         StartCoroutine("LowAudio");
     }
@@ -22,28 +26,28 @@ public class Shark : MonoBehaviour
     IEnumerator LowAudio()
     {
         audioSource.clip = low;
-        if (Vector3.Distance(target.position, transform.position) < 25)
+        if (attacking && Vector3.Distance(target.position, transform.position) < 25)
         {
             audioSource.Play();
             yield return new WaitForSeconds(Vector3.Distance(target.position, transform.position) / 10);
         }
         else
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
         }
         StartCoroutine("HighAudio");
     }
     IEnumerator HighAudio()
     {
         audioSource.clip = high;
-        if (Vector3.Distance(target.position, transform.position) < 25)
+        if (attacking && Vector3.Distance(target.position, transform.position) < 25)
         {
             audioSource.Play();
             yield return new WaitForSeconds(Vector3.Distance(target.position, transform.position) / 10);
         }
         else
         {
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
         }
         StartCoroutine("LowAudio");
     }
@@ -51,8 +55,9 @@ public class Shark : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(target.position, transform.position) <= 5)
+        if (Vector3.Distance(target.position, transform.position) <= 10 && !movement.hiding)
         {
+            attacking = true;
             if (Mathf.Approximately(direction, 1))
             {
                 transform.LookAt(target);
@@ -62,12 +67,13 @@ public class Shark : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(transform.position - target.position);
             }
 
-            transform.position += direction * (target.position - transform.position).normalized / 50;
+            transform.position += direction * (target.position - transform.position).normalized / 50 * speed;
         }
         else
         {
+            attacking = false;
             direction = 1;
-            if (new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) != new Vector3(0,0,0))
+            if (new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) != new Vector3(0, 0, 0))
             {
                 transform.forward = Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))); ;
             }
