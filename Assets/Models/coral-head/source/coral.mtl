@@ -1,7 +1,7 @@
 # Blender MTL File: 'None'
 # Material Count: 1
 
-newmtl _SfM_001_02Material__26
+newmtl Material__25
 Ns 9.803922
 Ka 0.588000 0.588000 0.588000
 Kd 0.588000 0.588000 0.588000
@@ -10,5 +10,5 @@ Ke 0.000000 0.000000 0.000000
 Ni 1.500000
 d 1.000000
 illum 2
-map_Kd SfM_001_02cc.jpg
-map_Ka SfM_001_02cc.jpg
+map_Kd CoralHead_05/CoralHead_04cc.jpg
+map_Ka CoralHead_05/CoralHead_04cc.jpg
