@@ -1,21 +1,16 @@
 fileFormatVersion: 2
-guid: a4d039dc502fc408c9bf8fcbe0f78f8f
+guid: ca529bcaa69744ccaac76282e285ec39
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: SfM_001_02
-    100002: //RootNode
-    100004: default
-    400000: SfM_001_02
-    400002: //RootNode
-    400004: default
-    2100000: _SfM_001_02Material__26
-    2300000: SfM_001_02
-    2300002: default
-    3300000: SfM_001_02
-    3300002: default
-    4300000: SfM_001_02
-    4300002: default
+    100000: //RootNode
+    100002: default
+    400000: //RootNode
+    400002: default
+    2100000: Material__25
+    2300000: default
+    3300000: default
+    4300000: default
   externalObjects: {}
   materials:
     importMaterials: 1

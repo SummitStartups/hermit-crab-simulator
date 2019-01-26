@@ -36,7 +36,10 @@ public class Shark : MonoBehaviour {
         else
         {
             direction = 1;
-            transform.forward = Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"))); ;
+            if (new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) != new Vector3(0,0,0))
+            {
+                transform.forward = Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))); ;
+            }
             timeCounter += Time.deltaTime * speed;
             float x = Mathf.Cos(timeCounter) * width ;
             float y = 0;
