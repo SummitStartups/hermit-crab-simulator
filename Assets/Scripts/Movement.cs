@@ -106,9 +106,8 @@ public class Movement : MonoBehaviour
         // Debug.Log(col.collider.gameObject.tag);
         if (shell == null && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
         { // make new script for "Shell"??
-            // gameObject.transform.parent = col.collider.gameObject; // set to shell hopefully
 			shell = col.collider.transform;
-            shell.SetParent(cameraObject); // or would this do the trick? set parent to camera object 
+            shell.SetParent(cameraObject);
         }
     }
 
