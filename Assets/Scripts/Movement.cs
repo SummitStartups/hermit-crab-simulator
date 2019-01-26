@@ -82,6 +82,33 @@ public class Movement : MonoBehaviour
                 // 	// move up y-axis temporarily by height of character
                 // }
             }
+<<<<<<< HEAD
+            if (primaryTouchpad.x < -0.2f || Input.GetKey(KeyCode.A))
+            {
+                transform.position += cameraObject.right * speed / 100
+                * (primaryTouchpad.x == 0 ? -1 : primaryTouchpad.x);
+            }
+
+            if (charge)
+            {
+                transform.position += cameraObject.forward * speed / 100;
+            }
+
+            if (ExitShell)
+            {
+                shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                shell.SetParent(null);
+                // shell moves up and becomes detached from player
+                // change from shell to base scene in center eye position
+                // set position correctly by...
+                // shell drops to sea floor?
+            }
+
+            // if (jump) {
+            // 	// move up y-axis temporarily by height of character
+            // }
+=======
+>>>>>>> 7ab2eb47f89e77860972de13d2f02c8f1de74fff
         }
     }
 
@@ -94,6 +121,14 @@ public class Movement : MonoBehaviour
             fade.FadeOut();
             Invoke("ReloadGame",3f);
         }
+
+        // if no shell, collide new shell, set parent to camera object
+        // Debug.Log(col.collider.transform.parent);
+        // Debug.Log(col.collider.gameObject.tag);
+        if (col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { // make new script for "Shell"??
+            // gameObject.transform.parent = col.collider.gameObject; // set to shell hopefully
+            col.collider.transform.SetParent(cameraObject); // or would this do the trick? set parent to camera object 
+        }
     }
 
     // Reload game when dead
@@ -102,3 +137,9 @@ public class Movement : MonoBehaviour
         SceneManager.LoadScene("Sand");
     }
 }
+
+/*
+TODO: 
+1. if no shell -> increased movement speed + disable hiding
+2. defensive manuevers?? hide in shell, hide behind rock, dig underground (lose shell)
+ */
