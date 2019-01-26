@@ -5,6 +5,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour {
 
 	public Transform cameraObject;
+	public float speed = 2;
 
 	// Use this for initialization
 	void Start () {
@@ -14,17 +15,17 @@ public class Movement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
-		if (primaryTouchpad.y > 0 || Input.GetKey(KeyCode.W) ) {
-			transform.position += cameraObject.forward / 100;
+		if (primaryTouchpad.y > 0.2f || Input.GetKey(KeyCode.W) ) {
+			transform.position += cameraObject.forward * speed / 100;
 		}
-		if (primaryTouchpad.y < 0 || Input.GetKey(KeyCode.S) ) {
-			transform.position -= cameraObject.forward / 100;
+		if (primaryTouchpad.y < -0.2f || Input.GetKey(KeyCode.S) ) {
+			transform.position -= cameraObject.forward * speed / 100;
 		}
-		if (primaryTouchpad.x > 0 || Input.GetKey(KeyCode.D) ) {
-			transform.position += cameraObject.right / 100;
+		if (primaryTouchpad.x > 0.2f || Input.GetKey(KeyCode.D) ) {
+			transform.position += cameraObject.right * speed / 100;
 		}
-		if (primaryTouchpad.x < 0 || Input.GetKey(KeyCode.A) ) {
-			transform.position -= cameraObject.right / 100;
+		if (primaryTouchpad.x < -0.2f || Input.GetKey(KeyCode.A) ) {
+			transform.position -= cameraObject.right * speed / 100;
 		}
 	}
 }
