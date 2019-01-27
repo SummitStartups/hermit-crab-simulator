@@ -55,4 +55,4 @@ MonoBehaviour:
   - {fileID: 1571143851395092, guid: 89229fb1b75aa4ef883ab5663c229d88, type: 2}
   - {fileID: 1661339918691288, guid: 1410309bc728c4ab4a9e9ab429b7ac79, type: 2}
   - {fileID: 1684625719617954, guid: 6812ae8b1d9114215bd03633e7cb0593, type: 2}
-  countShells: 200
+  countShells: 100

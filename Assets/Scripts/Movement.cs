@@ -47,6 +47,7 @@ public class Movement : MonoBehaviour
                 exitShell.GetComponent<Rigidbody>().isKinematic = false;
                 shell.SetParent(null);
                 shell = null;
+                StartCoroutine("ResetShell");
             }
             if (shell && shell.localPosition.x + shell.localPosition.z > 0.1f)
             {
@@ -197,5 +198,10 @@ public class Movement : MonoBehaviour
     {
         attack = false;
         print(attack);
+    }
+
+    IEnumerator ResetShell(){
+        yield return new WaitForSeconds(1);
+        exitShell = null;
     }
 }

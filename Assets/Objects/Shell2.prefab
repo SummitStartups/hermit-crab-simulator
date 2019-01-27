@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4812249751908586}
   - component: {fileID: 33429151875646526}
   - component: {fileID: 23529567716072564}
+  - component: {fileID: 114982215983832934}
   m_Layer: 0
   m_Name: Shell2
   m_TagString: Untagged
@@ -156,3 +157,15 @@ MonoBehaviour:
   shell: {fileID: 23529567716072564}
   isGood: 0
   goodMat: {fileID: 2100000, guid: ba77cf4464b9b46dc8d95eb02481cc01, type: 2}
+--- !u!114 &114982215983832934
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1137519977190468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9167709b1dbd84bfe93f97a899baad61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mr: {fileID: 0}
