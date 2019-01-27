@@ -58242,8 +58242,12 @@ MonoBehaviour:
   fade: {fileID: 358702058}
   shell: {fileID: 968986697}
   speed: 2
+  coolDown: 0
+  coolDownPeriod: 1.5
+  dead: 0
   hiding: 0
   charge: 0
+  attack: 0
   ExitShell: 0
 --- !u!114 &1594308578
 MonoBehaviour:
@@ -58441,6 +58445,7 @@ GameObject:
   - component: {fileID: 1612465158}
   - component: {fileID: 1612465157}
   - component: {fileID: 1612465159}
+  - component: {fileID: 1612465160}
   m_Layer: 0
   m_Name: Claw (1)
   m_TagString: Untagged
@@ -58517,6 +58522,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bd8ff10cd3e4bd7b62377ffbd77a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1612465160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1612465155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537e5dd9f5ba04e67b4e59ce2dc3f016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1594308571}
+  timeCounter: 0
 --- !u!1001 &1615290904
 Prefab:
   m_ObjectHideFlags: 0
@@ -58731,6 +58749,7 @@ GameObject:
   - component: {fileID: 1651187275}
   - component: {fileID: 1651187274}
   - component: {fileID: 1651187276}
+  - component: {fileID: 1651187277}
   m_Layer: 0
   m_Name: Claw
   m_TagString: Untagged
@@ -58807,6 +58826,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bd8ff10cd3e4bd7b62377ffbd77a66, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1651187277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1651187272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537e5dd9f5ba04e67b4e59ce2dc3f016, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movement: {fileID: 1594308571}
+  timeCounter: 0
 --- !u!1 &1666542419
 GameObject:
   m_ObjectHideFlags: 0
