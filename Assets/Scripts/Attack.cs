@@ -22,7 +22,7 @@ public class Attack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        attack = movement.GetComponent<Movement>().attack;
+        //attack = movement.GetComponent<Movement>().attack;
         if (attack)
         {
             timeCounter += Time.deltaTime;

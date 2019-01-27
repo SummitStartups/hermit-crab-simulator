@@ -12,18 +12,23 @@ public class ShellSpawner : MonoBehaviour
     {
         for (int i = 0; i < countShells; i++)
         {
-            SpawnShells(array[Random.Range(1,array.Length)]);
+            SpawnShells(array[Random.Range(1, array.Length)]);
         }
     }
 
     void SpawnShells(GameObject shellObj)
     {
-        GameObject go = Instantiate(shellObj, transform.position + new Vector3(
+        Vector3 pos = transform.position + new Vector3(
             transform.localScale.x * (Random.value - 0.5f),
             0.6f,
-            transform.localScale.z * (Random.value - 0.5f)
-        ), Quaternion.identity);
-        go.transform.Rotate(new Vector3(0, Random.value * 360, 0));
-        go.transform.localScale *= Random.value * 3f + 0.05f;
+            transform.localScale.z * (Random.value - 0.5f));
+        if (pos.magnitude > 2)
+        {
+            GameObject go = Instantiate(shellObj,
+            pos,
+            Quaternion.identity);
+            go.transform.Rotate(new Vector3(0, Random.value * 360, 0));
+            go.transform.localScale *= Random.value * 3f + 0.05f;
+        }
     }
 }

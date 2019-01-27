@@ -24,6 +24,7 @@ public class Eating : MonoBehaviour
             }
             transform.localScale += Vector3.one * scale;
             movement.speed += Mathf.Min(growthRate * scale);
+            Narrator.instance.StartCoroutine("PlayEat");
         }
     }
 }
