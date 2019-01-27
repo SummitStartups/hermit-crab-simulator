@@ -20,7 +20,6 @@ public class Movement : MonoBehaviour
     public bool dead = false; // when true, no input registered from player
     public bool hiding = false; // when true, character can't move
     public bool charge = false; // whjen true, character moves quicker
-    public bool attack = false; // when true, character in attack frame
     private Transform exitShell; // when true, character is vulnerable from all sides
     public float currSize = 1;
     public float maxSize;
@@ -48,6 +47,7 @@ public class Movement : MonoBehaviour
                 exitShell.GetComponent<Rigidbody>().isKinematic = false;
                 shell.SetParent(null);
                 shell = null;
+                Narrator.instance.StartCoroutine("PlayPop");
                 StartCoroutine("ResetShell");
             }
             if (shell && shell.localPosition.x + shell.localPosition.z > 0.1f)
@@ -79,7 +79,7 @@ public class Movement : MonoBehaviour
             charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C);
             if (shell)
             {
-                hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
+                hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad)) || Input.GetKey(KeyCode.DownArrow);
                 if (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E))
                 {
                     exitShell = shell;
@@ -87,14 +87,11 @@ public class Movement : MonoBehaviour
                     exitShell.GetComponent<Rigidbody>().isKinematic = false;
                     shell.SetParent(null);
                     shell = null;
+                    StartCoroutine("ResetShell");
                 }
             }
-            if (coolDown <= Time.time)
-            {
-                attack = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > +0.2f) || Input.GetKey(KeyCode.X);
-            }
 
-            if (hiding || attack)
+            if (hiding)
             {
                 if (shell)
                 {
@@ -102,12 +99,6 @@ public class Movement : MonoBehaviour
                     {
                         shell.localPosition -= Vector3.up * Time.deltaTime * 4;
                     }
-                }
-                if (attack)
-                {
-                    //print(attack);
-                    coolDown = Time.time + coolDownPeriod;
-                    Invoke("RevertAttack", 1f);
                 }
             }
             else
@@ -163,16 +154,13 @@ public class Movement : MonoBehaviour
     {
         if (col.collider.gameObject.tag == "Shark")
         {
-            if (attack == true)
-            {
-                Destroy(col.collider.gameObject);
-            }
-            else if (hiding == false)
+            if (!hiding)
             {
                 dead = true;
                 deathText.SetActive(true);
                 deathText.GetComponent<TextMesh>().text = "You have Died! \n Your Score is \n " + (transform.localScale.x * 1000);
                 //fade.FadeOut();
+                Narrator.instance.StartCoroutine("PlayDeath");
                 Invoke("ReloadGame", 5f);
             }
         }
@@ -196,14 +184,8 @@ public class Movement : MonoBehaviour
         SceneManager.LoadScene("Sand");
     }
 
-    // Revert attack mode
-    void RevertAttack()
+    IEnumerator ResetShell()
     {
-        attack = false;
-        print(attack);
-    }
-
-    IEnumerator ResetShell(){
         yield return new WaitForSeconds(1);
         exitShell = null;
     }
