@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
 
+    public static Movement instance;
     public Transform cameraObject;
     public OVRScreenFade fade;
     public Transform shell;
@@ -19,9 +20,9 @@ public class Movement : MonoBehaviour
     public bool hiding = false; // when true, character can't move
     public bool charge = false; // whjen true, character moves quicker
     public bool attack = false; // when true, character in attack frame
-    public bool exitShell = false; // when true, character is vulnerable from all sides
+    private Transform exitShell; // when true, character is vulnerable from all sides
     public float currSize = 1;
-    public float maxSize; 
+    public float maxSize;
     Shark[] sharks;
     public AudioSource music;
 
@@ -29,6 +30,7 @@ public class Movement : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        instance = this;
         sharks = FindObjectsOfType<Shark>();
         maxSize = currSize * 2; // hermit grows in new shell 2x size of previous shell??
     }
@@ -38,17 +40,28 @@ public class Movement : MonoBehaviour
     {
         if (!dead)
         {
+            if (shell && shell.localPosition.x + shell.localPosition.z > 0.1f)
+            {
+                shell.localPosition -= new Vector3(
+                    shell.localPosition.normalized.x,
+                    0,
+                    shell.localPosition.normalized.z);
+            }
             bool targeted = false;
-            foreach(Shark s in sharks){
-                if(s.attacking){
+            foreach (Shark s in sharks)
+            {
+                if (s.attacking)
+                {
                     targeted = true;
                     break;
                 }
             }
-            if(targeted){
+            if (targeted)
+            {
                 music.volume = 0;
             }
-            else{
+            else
+            {
                 music.volume = 0.5f;
             }
             Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
@@ -57,8 +70,14 @@ public class Movement : MonoBehaviour
             if (shell)
             {
                 hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
-                exitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
-                shell = null;
+                if (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E))
+                {
+                    exitShell = shell;
+                    exitShell.GetComponent<Collider>().enabled = true;
+                    exitShell.GetComponent<Rigidbody>().isKinematic = false;
+                    shell.SetParent(null);
+                    shell = null;
+                }
             }
             if (coolDown <= Time.time)
             {
@@ -67,7 +86,8 @@ public class Movement : MonoBehaviour
 
             if (hiding || attack)
             {
-                if (shell) { 
+                if (shell)
+                {
                     if (shell.localPosition.y > 1.2f)
                     {
                         shell.localPosition -= Vector3.up * Time.deltaTime * 4;
@@ -91,7 +111,8 @@ public class Movement : MonoBehaviour
                     transform.Rotate(0, 1, 0);
                 }
 
-                if (shell) { 
+                if (shell)
+                {
                     if (shell.localPosition.y < 2f)
                     {
                         shell.localPosition += Vector3.up * Time.deltaTime * 4;
@@ -123,18 +144,6 @@ public class Movement : MonoBehaviour
                     transform.position += cameraObject.forward * speed / 100;
                 }
 
-                if (exitShell)
-                {
-                    // shell moves up and becomes detached from player
-
-                    GameObject DroppedShell = Instantiate(droppedShell, transform.position, transform.rotation);
-                    Vector3 droppedShellPos = DroppedShell.transform.position;
-                    DroppedShell.transform.localScale = new Vector3(droppedShellPos.x*5, droppedShellPos.y*25, droppedShellPos.z*5);
-                    speed++;
-                    Destroy(shell.gameObject);
-                    exitShell = false;
-                }
-            
             }
         }
     }
@@ -155,9 +164,12 @@ public class Movement : MonoBehaviour
                 Invoke("ReloadGame", 3f);
             }
         }
-        if (shell == null && col.collider.transform != exitShell && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { 
+        if (shell == null && col.collider.transform != exitShell && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
+        {
             shell = col.collider.transform;
-            shell.SetParent(cameraObject); 
+            shell.SetParent(cameraObject);
+            shell.GetComponent<Collider>().enabled = false;
+            shell.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 

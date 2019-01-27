@@ -24,6 +24,6 @@ public class ShellSpawner : MonoBehaviour
             transform.localScale.z * (Random.value - 0.5f)
         ), Quaternion.identity);
         go.transform.Rotate(new Vector3(0, Random.value * 360, 0));
-        go.transform.localScale *= Random.value * 2.8f + 0.2f;
+        go.transform.localScale *= Random.value * 3f + 0.05f;
     }
 }

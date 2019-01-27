@@ -4,26 +4,35 @@ using UnityEngine;
 
 public class Shell : MonoBehaviour
 {
-    public Transform home;
-    public Transform shell;
-    private bool isEmpty;
-    private float size; 
+    public MeshRenderer shell;
+    private bool isEmpty = false;
+    private float size;
+    private Material mat;
+    public Material goodMat; 
 
     void Start()
     {
         // prefab shell size on shell transform when starting game
         isEmpty = false;
         size = transform.localScale.x;
+        mat = shell.material;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (isEmpty == false) 
+        if (!isEmpty) 
         {
             // option 1
             // Movement.OnCollisionEnter(Collision col); // how do i talk to Movement class?
             // isEmpty = true;
+            if(Movement.instance.transform.localScale.x > transform.localScale.x
+            && Movement.instance.transform.localScale.x < transform.localScale.x * 10
+            && transform != Movement.instance.shell){
+                shell.material = goodMat;
+            }else{
+                shell.material = mat;
+            }
 
             // option 2
             if (true) { // gets inhabited
