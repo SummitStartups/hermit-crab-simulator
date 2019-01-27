@@ -9,13 +9,20 @@ public class Movement : MonoBehaviour
     public Transform cameraObject;
     public OVRScreenFade fade;
     public Transform shell;
+    public GameObject droppedShell;
+    Vector3 basePos;
     public float speed = 2;
+    public float coolDown;
+    public float coolDownPeriod = 1.5f;
+
     public bool dead = false; // when true, no input registered from player
     public bool hiding = false; // when true, character can't move
-    public bool charge = false;
+    public bool charge = false; // whjen true, character moves quicker
+    public bool attack = false; // when true, character in attack frame
     public bool ExitShell = false; // when true, character is vulnerable from all sides
     // public bool jump = false; // when true, character can't attack
     public float size = 1;
+
 
     // Use this for initialization
     void Start()
@@ -30,29 +37,49 @@ public class Movement : MonoBehaviour
         {
             Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 
-            hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
             charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C);
-            ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+            if (shell)
+            {
+                hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
+                ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+            }
+            if (coolDown <= Time.time)
+            {
+                attack = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > +0.2f) || Input.GetKey(KeyCode.X);
+            }
             // jump = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > 0.2f) || Input.GetKey(KeyCode.J); 
 
-            if (hiding && shell != null)
+            if (hiding || attack)
             {
-                if (shell.localPosition.y > 1.2f)
+                if (shell) { 
+                    if (shell.localPosition.y > 1.2f)
+                    {
+                        shell.localPosition -= Vector3.up * Time.deltaTime * 4;
+                    }
+                }
+                if (attack)
                 {
-                    shell.localPosition -= Vector3.up * Time.deltaTime * 4;
+                    //print(attack);
+                    coolDown = Time.time + coolDownPeriod;
+                    Invoke("RevertAttack", 1f);
                 }
             }
             else
             {
-				if(Input.GetKey(KeyCode.LeftArrow)){
-					transform.Rotate(0, -1, 0);
-				}
-				if(Input.GetKey(KeyCode.RightArrow)){
-					transform.Rotate(0, 1, 0);
-				}
-                if (shell != null && shell.localPosition.y < 2f)
+                if (Input.GetKey(KeyCode.LeftArrow))
                 {
-                    shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                    transform.Rotate(0, -1, 0);
+                }
+                if (Input.GetKey(KeyCode.RightArrow))
+                {
+                    transform.Rotate(0, 1, 0);
+                }
+
+                if (shell) { 
+                    if (shell.localPosition.y < 2f)
+                    {
+                        shell.localPosition += Vector3.up * Time.deltaTime * 4;
+                    }
                 }
                 if (primaryTouchpad.y > 0.2f || Input.GetKey(KeyCode.W))
                 {
@@ -80,16 +107,24 @@ public class Movement : MonoBehaviour
                     transform.position += cameraObject.forward * speed / 100;
                 }
 
-                if (shell != null & ExitShell)
+                if (ExitShell)
                 {
-                    shell.localPosition += Vector3.up * Time.deltaTime * 4;
-                    shell.SetParent(null);
-					shell = null;
+                    // shell moves up and becomes detached from player
+
+                    GameObject DroppedShell = Instantiate(droppedShell, transform.position, transform.rotation);
+                    Vector3 droppedShellPos = DroppedShell.transform.position;
+                    DroppedShell.transform.localScale = new Vector3(droppedShellPos.x*5, droppedShellPos.y*25, droppedShellPos.z*5);
+                    speed++;
+                    Destroy(shell.gameObject);
+                    ExitShell = false;
                 }
+
+
 
                 // if (jump) {
                 // 	// move up y-axis temporarily by height of character
                 // }
+            
             }
         }
     }
@@ -97,17 +132,18 @@ public class Movement : MonoBehaviour
     // Collision logic
     void OnCollisionEnter(Collision col)
     {
-        if (col.collider.gameObject.tag == "Shark" && hiding == false)
+        if (col.collider.gameObject.tag == "Shark")
         {
-            dead = true;
-            fade.FadeOut();
-            Invoke("ReloadGame", 3f);
-        }
-
-        if (shell == null && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
-        { 
-			shell = col.collider.transform;
-            shell.SetParent(cameraObject);
+            if (attack == true)
+            {
+                Destroy(col.collider.gameObject);
+            }
+            else if (hiding == false)
+            {
+                dead = true;
+                fade.FadeOut();
+                Invoke("ReloadGame", 3f);
+            }
         }
     }
 
@@ -115,6 +151,13 @@ public class Movement : MonoBehaviour
     void ReloadGame()
     {
         SceneManager.LoadScene("Sand");
+    }
+
+    // Revert attack mode
+    void RevertAttack()
+    {
+        attack = false;
+        print(attack);
     }
 }
 

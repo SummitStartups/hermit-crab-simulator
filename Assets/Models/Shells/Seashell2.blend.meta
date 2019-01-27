@@ -3,8 +3,11 @@ guid: cd37e985791da47348bfbcd4a36fbc01
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
+<<<<<<< HEAD
     100000: //RootNode
     400000: //RootNode
+=======
+>>>>>>> 62429b334967cca918e37162285a74e3e27c7ce3
     2186277476908879412: ImportLogs
   externalObjects: {}
   materials:
@@ -82,7 +85,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
