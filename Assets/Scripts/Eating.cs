@@ -6,8 +6,8 @@ public class Eating : MonoBehaviour
 {
 
     private Movement movement;
-    private float growthRate = 0.1f;
-    private float maxGrowthRate = 0.1f;
+    private float growthRate = 0.05f;
+    private float maxGrowthRate = 0.05f;
     void Start()
     {
         movement = GetComponent<Movement>();
