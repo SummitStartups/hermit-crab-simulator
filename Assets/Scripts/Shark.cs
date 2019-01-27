@@ -11,7 +11,7 @@ public class Shark : MonoBehaviour
 
     bool attacking = false;
     float timeCounter;
-    float speed = 0.5f;
+    public float speed = 0.5f;
     float width = 2;
     float length = 3;
     float direction = 1;
