@@ -20,7 +20,8 @@ public class Movement : MonoBehaviour
     public bool charge = false; // whjen true, character moves quicker
     public bool attack = false; // when true, character in attack frame
     public bool ExitShell = false; // when true, character is vulnerable from all sides
-                                   // public bool jump = false; // when true, character can't attack
+    // public bool jump = false; // when true, character can't attack
+    public float size = 1;
 
 
     // Use this for initialization
