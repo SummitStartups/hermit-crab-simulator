@@ -7,15 +7,13 @@ public class Shell : MonoBehaviour
     public Transform home;
     public Transform shell;
     private bool isEmpty;
-    private float maxSize; // hermit can grow in new shell 2x size of previous shell
-    private float currSize;
+    private float size; 
 
     void Start()
     {
         // prefab shell size on shell transform when starting game
         isEmpty = false;
-        currSize = Random.Range(1,11);
-        maxSize = currSize * 2; // hermit grows in new shell 2x size of previous shell??
+        size = Random.Range(1,5);
     }
 
     // Update is called once per frame
@@ -23,18 +21,21 @@ public class Shell : MonoBehaviour
     {
         if (isEmpty == false) 
         {
+            // option 1
             // Movement.OnCollisionEnter(Collision col); // how do i talk to Movement class?
-            isEmpty = true;
-            // if (true) { // gets inhabited
-            //     // add shell onto player object -> done in Movement class
-            //     maxSize *= 2; 
-            //     isEmpty = true;
-            // }
+            // isEmpty = true;
+
+            // option 2
+            if (true) { // gets inhabited
+                // add shell onto player object -> done in Movement class
+                isEmpty = true;
+            }
         }
-        if (true) // player bigger than shell 
-        {
-            shell.SetParent(null);
-			shell = null;
-        }
+
+        // if (Movement.currSize > size) // player bigger than shell 
+        // {
+        //     shell.SetParent(null);
+		// 	shell = null;
+        // }
     }
 }

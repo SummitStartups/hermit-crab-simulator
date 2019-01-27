@@ -20,14 +20,14 @@ public class Movement : MonoBehaviour
     public bool charge = false; // whjen true, character moves quicker
     public bool attack = false; // when true, character in attack frame
     public bool ExitShell = false; // when true, character is vulnerable from all sides
-    // public bool jump = false; // when true, character can't attack
-    public float size = 1;
+    public float currSize = 1;
+    public float maxSize; 
 
 
     // Use this for initialization
     void Start()
     {
-
+        maxSize = currSize * 2; // hermit grows in new shell 2x size of previous shell??
     }
 
     // Update is called once per frame
@@ -47,7 +47,6 @@ public class Movement : MonoBehaviour
             {
                 attack = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > +0.2f) || Input.GetKey(KeyCode.X);
             }
-            // jump = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y > 0.2f) || Input.GetKey(KeyCode.J); 
 
             if (hiding || attack)
             {
@@ -118,12 +117,6 @@ public class Movement : MonoBehaviour
                     Destroy(shell.gameObject);
                     ExitShell = false;
                 }
-
-
-
-                // if (jump) {
-                // 	// move up y-axis temporarily by height of character
-                // }
             
             }
         }
@@ -145,6 +138,9 @@ public class Movement : MonoBehaviour
                 Invoke("ReloadGame", 3f);
             }
         }
+        if (col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { 
+            col.collider.transform.SetParent(cameraObject); 
+        }
     }
 
     // Reload game when dead
@@ -160,9 +156,3 @@ public class Movement : MonoBehaviour
         print(attack);
     }
 }
-
-/*
-TODO: 
-1. if no shell -> increased movement speed + disable hiding
-2. defensive manuevers?? hide in shell, hide behind rock, dig underground (lose shell)
- */
