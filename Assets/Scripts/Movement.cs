@@ -19,14 +19,17 @@ public class Movement : MonoBehaviour
     public bool hiding = false; // when true, character can't move
     public bool charge = false; // whjen true, character moves quicker
     public bool attack = false; // when true, character in attack frame
-    public bool ExitShell = false; // when true, character is vulnerable from all sides
+    public bool exitShell = false; // when true, character is vulnerable from all sides
     public float currSize = 1;
     public float maxSize; 
+    Shark[] sharks;
+    public AudioSource music;
 
 
     // Use this for initialization
     void Start()
     {
+        sharks = FindObjectsOfType<Shark>();
         maxSize = currSize * 2; // hermit grows in new shell 2x size of previous shell??
     }
 
@@ -35,13 +38,27 @@ public class Movement : MonoBehaviour
     {
         if (!dead)
         {
+            bool targeted = false;
+            foreach(Shark s in sharks){
+                if(s.attacking){
+                    targeted = true;
+                    break;
+                }
+            }
+            if(targeted){
+                music.volume = 0;
+            }
+            else{
+                music.volume = 0.5f;
+            }
             Vector2 primaryTouchpad = OVRInput.Get(OVRInput.Axis2D.PrimaryTouchpad);
 
             charge = (OVRInput.Get(OVRInput.Button.PrimaryIndexTrigger)) || Input.GetKey(KeyCode.C);
             if (shell)
             {
                 hiding = (OVRInput.Get(OVRInput.Button.PrimaryTouchpad) && primaryTouchpad.y < -0.2f) || Input.GetKey(KeyCode.H);
-                ExitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+                exitShell = (OVRInput.Get(OVRInput.RawButton.Back) || Input.GetKey(KeyCode.E));
+                shell = null;
             }
             if (coolDown <= Time.time)
             {
@@ -106,7 +123,7 @@ public class Movement : MonoBehaviour
                     transform.position += cameraObject.forward * speed / 100;
                 }
 
-                if (ExitShell)
+                if (exitShell)
                 {
                     // shell moves up and becomes detached from player
 
@@ -115,7 +132,7 @@ public class Movement : MonoBehaviour
                     DroppedShell.transform.localScale = new Vector3(droppedShellPos.x*5, droppedShellPos.y*25, droppedShellPos.z*5);
                     speed++;
                     Destroy(shell.gameObject);
-                    ExitShell = false;
+                    exitShell = false;
                 }
             
             }
@@ -138,8 +155,9 @@ public class Movement : MonoBehaviour
                 Invoke("ReloadGame", 3f);
             }
         }
-        if (col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { 
-            col.collider.transform.SetParent(cameraObject); 
+        if (shell == null && col.collider.transform != exitShell && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell") { 
+            shell = col.collider.transform;
+            shell.SetParent(cameraObject); 
         }
     }
 

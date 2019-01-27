@@ -13,7 +13,7 @@ public class Shell : MonoBehaviour
     {
         // prefab shell size on shell transform when starting game
         isEmpty = false;
-        size = Random.Range(1,5);
+        size = transform.localScale.x;
     }
 
     // Update is called once per frame

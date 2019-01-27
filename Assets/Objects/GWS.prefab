@@ -224,5 +224,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  low: {fileID: 8300000, guid: 6816c710332954fbc959f06e5fc469ad, type: 3}
-  high: {fileID: 8300000, guid: d16b15a30f0d84ffdb4527ff53164028, type: 3}
+  low: {fileID: 8300000, guid: 240fc49e68eef4fd2a6e814d416962c7, type: 3}
+  high: {fileID: 8300000, guid: b53c634fd80704bd4b364967ebcb9c5f, type: 3}
+  speed: 0.5

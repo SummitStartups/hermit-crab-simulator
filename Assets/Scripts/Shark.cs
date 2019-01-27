@@ -9,7 +9,7 @@ public class Shark : MonoBehaviour
     AudioSource audioSource;
     Movement movement;
 
-    bool attacking = false;
+    public bool attacking = false;
     float timeCounter;
     public float speed = 0.5f;
     float width = 2;
