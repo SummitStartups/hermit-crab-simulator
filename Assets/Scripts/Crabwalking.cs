@@ -6,9 +6,8 @@ public class Crabwalking : MonoBehaviour
 {
     public Transform target;
 
-    bool attacking = false;
     float timeCounter;
-    public float speed = 0.5f;
+    private float speed = 0.6f;
     float width = 2;
     float length = 3;
     float direction = 1;
@@ -17,69 +16,56 @@ public class Crabwalking : MonoBehaviour
     {
     }
 
-     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
         target = FindClosestEnemy().transform;
-        if (Vector3.Distance(target.position, transform.position) <= 10)
-        {
-            attacking = true;
-            if (Mathf.Approximately(direction, 1))
-            {
-                transform.LookAt(target);
-            }
-            else
-            {
-                transform.rotation = Quaternion.LookRotation(transform.position - target.position);
-            }
 
-            transform.position += direction * (target.position - transform.position).normalized / 50 * speed;
-        }
-        else
-        {
-            attacking = false;
-            direction = 1;
-            if (new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")) != new Vector3(0, 0, 0))
-            {
-                transform.forward = Vector3.Normalize(new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"))); ;
-            }
-            timeCounter += Time.deltaTime * speed;
-            float x = Mathf.Cos(timeCounter) * width;
-            float y = 0;
-            float z = Mathf.Sin(timeCounter) * length;
-            transform.rotation = Quaternion.LookRotation(new Vector3(x, y, z) * Time.deltaTime * speed);
-            transform.position += new Vector3(x, y, z) * Time.deltaTime * speed;
-        }
+        Vector3 targetPostition = new Vector3( target.position.x, 
+                                        this.transform.position.y, 
+                                        target.position.z ) ;
+        this.transform.LookAt( targetPostition ) ;
 
+        transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime);
+        // transform.position +=  (targetPostition - transform.position).normalized/10 * speed;
+    
+     Vector3 diff = target.transform.position - transform.position;
+            float curDistance = diff.sqrMagnitude;
+            Debug.Log(curDistance);
+            if (curDistance <= 0.3f)
+            {
+                Destroy (target.gameObject);
+            }
     }
 
-          public GameObject FindClosestEnemy()
+    public GameObject FindClosestEnemy()
+    {
+        GameObject[] gos;
+        gos = GameObject.FindGameObjectsWithTag("Food");
+        GameObject closest = null;
+        float distance = Mathf.Infinity;
+        Vector3 position = transform.position;
+        foreach (GameObject go in gos)
         {
-            GameObject[] gos;
-            gos = GameObject.FindGameObjectsWithTag("Food");
-            GameObject closest = null;
-            float distance = Mathf.Infinity;
-            Vector3 position = transform.position;
-            foreach (GameObject go in gos)
+            Vector3 diff = go.transform.position - position;
+            float curDistance = diff.sqrMagnitude;
+            if (curDistance < distance)
             {
-                Vector3 diff = go.transform.position - position;
-                float curDistance = diff.sqrMagnitude;
-                if (curDistance < distance)
-                {
-                    closest = go;
-                    distance = curDistance;
-                }
+                closest = go;
+                distance = curDistance;
             }
-            return closest;
         }
+        return closest;
+    }
   
 
-    // Collide with Player
+    // Collide with Food
     void OnCollisionEnter(Collision col)
     {
+        print("colliding");
         if (col.collider.gameObject.tag == "Food")
         {
-            Destroy(col.collider.gameObject);
+            Destroy(col.collider.gameObject);    
         }
     }
 }
