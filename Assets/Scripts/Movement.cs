@@ -14,7 +14,8 @@ public class Movement : MonoBehaviour
     public bool hiding = false; // when true, character can't move
     public bool charge = false;
     public bool ExitShell = false; // when true, character is vulnerable from all sides
-                                   // public bool jump = false; // when true, character can't attack
+    // public bool jump = false; // when true, character can't attack
+    public float size = 1;
 
     // Use this for initialization
     void Start()
@@ -84,10 +85,6 @@ public class Movement : MonoBehaviour
                     shell.localPosition += Vector3.up * Time.deltaTime * 4;
                     shell.SetParent(null);
 					shell = null;
-                    // shell moves up and becomes detached from player
-                    // change from shell to base scene in center eye position
-                    // set position correctly by...
-                    // shell drops to sea floor?
                 }
 
                 // if (jump) {
@@ -107,11 +104,8 @@ public class Movement : MonoBehaviour
             Invoke("ReloadGame", 3f);
         }
 
-        // if no shell, collide new shell, set parent to camera object
-        // Debug.Log(col.collider.transform.parent);
-        // Debug.Log(col.collider.gameObject.tag);
         if (shell == null && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
-        { // make new script for "Shell"??
+        { 
 			shell = col.collider.transform;
             shell.SetParent(cameraObject);
         }
