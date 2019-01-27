@@ -55,7 +55,7 @@ public class Shark : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(target.position, transform.position) <= 10 && !movement.hiding)
+        if (Vector3.Distance(target.position, transform.position) <= 6 && !movement.hiding)
         {
             attacking = true;
             if (Mathf.Approximately(direction, 1))

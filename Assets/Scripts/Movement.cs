@@ -40,6 +40,14 @@ public class Movement : MonoBehaviour
     {
         if (!dead)
         {
+            if (shell && !shell.GetComponent<Shell>().isGood)
+            {
+                exitShell = shell;
+                exitShell.GetComponent<Collider>().enabled = true;
+                exitShell.GetComponent<Rigidbody>().isKinematic = false;
+                shell.SetParent(null);
+                shell = null;
+            }
             if (shell && shell.localPosition.x + shell.localPosition.z > 0.1f)
             {
                 shell.localPosition -= new Vector3(
@@ -166,10 +174,14 @@ public class Movement : MonoBehaviour
         }
         if (shell == null && col.collider.transform != exitShell && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")
         {
-            shell = col.collider.transform;
-            shell.SetParent(cameraObject);
-            shell.GetComponent<Collider>().enabled = false;
-            shell.GetComponent<Rigidbody>().isKinematic = true;
+            Shell s = col.collider.GetComponent<Shell>();
+            if (s.isGood)
+            {
+                shell = col.collider.transform;
+                shell.SetParent(cameraObject);
+                shell.GetComponent<Collider>().enabled = false;
+                shell.GetComponent<Rigidbody>().isKinematic = true;
+            }
         }
     }
 
