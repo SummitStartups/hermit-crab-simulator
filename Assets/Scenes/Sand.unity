@@ -12346,6 +12346,7 @@ GameObject:
   - component: {fileID: 1594308578}
   - component: {fileID: 1594308579}
   - component: {fileID: 1594308580}
+  - component: {fileID: 1594308581}
   m_Layer: 0
   m_Name: OVRCameraRig
   m_TagString: Player
@@ -12458,7 +12459,6 @@ MonoBehaviour:
   dead: 0
   hiding: 0
   charge: 0
-  attack: 0
   currSize: 1
   maxSize: 0
   music: {fileID: 1594308579}
@@ -12663,6 +12663,40 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1594308581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1594308571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b34a255de4aef411ca8981fbac59776a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EatSmarm:
+  - {fileID: 8300000, guid: 36d06d31f07a747ccba2f0f5e19e447c, type: 3}
+  - {fileID: 8300000, guid: d155c259d89374538a1bb02ac0fccdc9, type: 3}
+  - {fileID: 8300000, guid: 4edccbfb4b8404023982b39000e5151a, type: 3}
+  - {fileID: 8300000, guid: 75fdc341ba1dc48b48ee5aa19d7bbfee, type: 3}
+  EatSFX: {fileID: 8300000, guid: 31ec8282d84bb45c1ab63fc652c1150f, type: 3}
+  DeathSmarm:
+  - {fileID: 8300000, guid: d9ede40d8620b42a198157d550438049, type: 3}
+  - {fileID: 8300000, guid: 54ca71c119775436ea49f98256e27250, type: 3}
+  - {fileID: 8300000, guid: dcaa1e100f6a244b7a2e6662a1e4e8e5, type: 3}
+  - {fileID: 8300000, guid: 55d29e5636c9048769ffc4891106e5f5, type: 3}
+  PopOut:
+  - {fileID: 8300000, guid: fdd7ae94ad25e4e84b8b823d8f1033eb, type: 3}
+  - {fileID: 8300000, guid: 9742cb814d94a4d91a275cd03c1fd122, type: 3}
+  - {fileID: 8300000, guid: b4d0853b3926e46648f8f9dc270c2471, type: 3}
+  - {fileID: 8300000, guid: 87ed0ef02c5b4492b8a38d45870fa317, type: 3}
+  - {fileID: 8300000, guid: 5c5cc6dd55da742b3ac2c19b37d3a507, type: 3}
+  - {fileID: 8300000, guid: 088cb91b828bf423bb3dffe3d1b1a930, type: 3}
+  Welcome:
+  - {fileID: 8300000, guid: 8a247b5b6f7a34fa1820c8a309527e3a, type: 3}
+  - {fileID: 8300000, guid: 76d3da335c07d40e1809142c53a7d96f, type: 3}
+  - {fileID: 8300000, guid: ac8304fc333634b51a1a49d35e835bba, type: 3}
+  - {fileID: 8300000, guid: f27920cf5ae8e487cbedc117e99e1473, type: 3}
 --- !u!1001 &1609736682
 Prefab:
   m_ObjectHideFlags: 0
@@ -20368,7 +20402,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4100107359594852, guid: 55a630f29352445eab6134a91b661333, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -8.2
+      value: -13.4
       objectReference: {fileID: 0}
     - target: {fileID: 4100107359594852, guid: 55a630f29352445eab6134a91b661333, type: 2}
       propertyPath: m_LocalRotation.x
