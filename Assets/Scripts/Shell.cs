@@ -22,8 +22,8 @@ public class Shell : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Movement.instance.transform.localScale.x > size / 4
-        && Movement.instance.transform.localScale.x < size)
+        if (Movement.instance.transform.localScale.x > size / 20
+        && Movement.instance.transform.localScale.x < size / 10)
         {
             isGood = true;
         }

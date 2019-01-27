@@ -12,7 +12,7 @@ public class Movement : MonoBehaviour
     public Transform shell;
     public GameObject droppedShell;
     Vector3 basePos;
-    public float speed = 2;
+    public float speed = 0.5f;
     public float coolDown;
     public float coolDownPeriod = 1.5f;
 
@@ -179,6 +179,7 @@ public class Movement : MonoBehaviour
             {
                 shell = col.collider.transform;
                 shell.SetParent(cameraObject);
+                shell.localEulerAngles = new Vector3(0, -90, 0);
                 shell.GetComponent<Collider>().enabled = false;
                 shell.GetComponent<Rigidbody>().isKinematic = true;
             }
