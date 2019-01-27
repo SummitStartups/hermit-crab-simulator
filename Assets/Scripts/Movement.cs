@@ -15,6 +15,7 @@ public class Movement : MonoBehaviour
     public float speed = 0.5f;
     public float coolDown;
     public float coolDownPeriod = 1.5f;
+    public GameObject deathText;
 
     public bool dead = false; // when true, no input registered from player
     public bool hiding = false; // when true, character can't move
@@ -156,9 +157,11 @@ public class Movement : MonoBehaviour
             if (!hiding)
             {
                 dead = true;
-                fade.FadeOut();
-                Invoke("ReloadGame", 3f);
+                deathText.SetActive(true);
+                deathText.GetComponent<TextMesh>().text = "You have Died! \n Your Score is \n " + (transform.localScale.x * 1000);
+                //fade.FadeOut();
                 Narrator.instance.StartCoroutine("PlayDeath");
+                Invoke("ReloadGame", 5f);
             }
         }
         if (shell == null && col.collider.transform != exitShell && col.collider.transform.parent == null && col.collider.gameObject.tag == "Shell")

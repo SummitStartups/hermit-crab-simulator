@@ -452,6 +452,92 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.0005615335, y: -0.0006235589, z: 0.0000040712766}
     m_Extent: {x: 0.0034193443, y: 0.0034534798, z: 0.0020635044}
   m_DirtyAABB: 0
+--- !u!1 &173358839
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 173358840}
+  - component: {fileID: 173358842}
+  - component: {fileID: 173358841}
+  m_Layer: 0
+  m_Name: Score Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &173358840
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173358839}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.21, y: 1.19, z: 5.12}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_Children: []
+  m_Father: {fileID: 358702057}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!102 &173358841
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173358839}
+  m_Text: 'Your Score is:'
+  m_OffsetZ: 0
+  m_CharacterSize: 22.81
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 12800000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
+  m_Color:
+    serializedVersion: 2
+    rgba: 4294967295
+--- !u!23 &173358842
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 173358839}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 2100000, guid: 7e89e80fce8fc06478c726f2f3de7863, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &206129839 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1000011549955176, guid: d9809c5e8418bb047bf2c8ba1d1a2cec,
@@ -835,6 +921,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 173358840}
   - {fileID: 1651187273}
   - {fileID: 1244275687}
   - {fileID: 1612465156}
@@ -971,7 +1058,7 @@ Transform:
   m_Children:
   - {fileID: 1308621579}
   m_Father: {fileID: 358702057}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: -69.06, y: 180, z: 0}
 --- !u!23 &377262286
 MeshRenderer:
@@ -7144,7 +7231,7 @@ Transform:
   m_Children:
   - {fileID: 1702944191}
   m_Father: {fileID: 358702057}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: -69.06, y: 180, z: 0}
 --- !u!23 &1244275688
 MeshRenderer:
@@ -12417,6 +12504,31 @@ MonoBehaviour:
   _headPoseRelativeOffsetRotation: {x: 0, y: 0, z: 0}
   _headPoseRelativeOffsetTranslation: {x: 0, y: 0, z: 0}
   profilerTcpPort: 32419
+  expandMixedRealityCapturePropertySheet: 0
+  enableMixedReality: 0
+  compositionMethod: 0
+  extraHiddenLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  capturingCameraDevice: 0
+  flipCameraFrameHorizontally: 0
+  flipCameraFrameVertically: 0
+  handPoseStateLatency: 0
+  sandwichCompositionRenderLatency: 0
+  sandwichCompositionBufferedFrames: 8
+  chromaKeyColor: {r: 0, g: 1, b: 0, a: 1}
+  chromaKeySimilarity: 0.6
+  chromaKeySmoothRange: 0.03
+  chromaKeySpillRange: 0.06
+  useDynamicLighting: 0
+  depthQuality: 1
+  dynamicLightingSmoothFactor: 8
+  dynamicLightingDepthVariationClampingValue: 0.001
+  virtualGreenScreenType: 0
+  virtualGreenScreenTopY: 10
+  virtualGreenScreenBottomY: -10
+  virtualGreenScreenApplyDepthCulling: 0
+  virtualGreenScreenDepthTolerance: 0.2
   _trackingOriginType: 1
   usePositionTracking: 1
   useRotationTracking: 1
@@ -12456,6 +12568,7 @@ MonoBehaviour:
   speed: 2
   coolDown: 0
   coolDownPeriod: 1.5
+  deathText: {fileID: 173358839}
   dead: 0
   hiding: 0
   charge: 0
@@ -12734,7 +12847,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4222532152320646, guid: 1410309bc728c4ab4a9e9ab429b7ac79, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4222532152320646, guid: 1410309bc728c4ab4a9e9ab429b7ac79, type: 2}
       propertyPath: m_LocalScale.x
@@ -12796,7 +12909,7 @@ Transform:
   m_LocalScale: {x: -100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 358702057}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: -58.43, y: 180, z: 0}
 --- !u!23 &1612465157
 MeshRenderer:
@@ -14577,6 +14690,16 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 23959623229021914, guid: fc04632003f634b2d85a44d2f134ef49,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 23415421133286230, guid: fc04632003f634b2d85a44d2f134ef49,
+        type: 2}
+      propertyPath: m_ReceiveShadows
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114443481576194318, guid: fc04632003f634b2d85a44d2f134ef49, type: 2}
     - {fileID: 114118803924869522, guid: fc04632003f634b2d85a44d2f134ef49, type: 2}
@@ -14860,7 +14983,7 @@ Transform:
   m_LocalScale: {x: 100, y: 100.000015, z: 100.000046}
   m_Children: []
   m_Father: {fileID: 358702057}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -58.43, y: 180, z: 0}
 --- !u!23 &1651187274
 MeshRenderer:
